@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#eef5ff" />
+  <meta name="description" content="فروشگاه موبایل با طراحی شیشه‌ای مدرن برای خرید گوشی، لوازم جانبی، سیم‌کارت و اقساط" />
+  <title>فروشگاه موبایل میلاد</title>
+
+  <link rel="stylesheet" href="https://cdn.font-store.ir/behdad.css" />
+
+  <style>
+    :root {
+      --bg: #edf5ff;
+      --bg-2: #f8fbff;
+      --text: #162033;
+      --muted: #6e7890;
+      --primary: #1473e6;
+      --primary-2: #55a4ff;
+      --success: #16a36a;
+      --danger: #ef476f;
+      --glass: rgba(255, 255, 255, 0.54);
+      --glass-strong: rgba(255, 255, 255, 0.72);
+      --border: rgba(255, 255, 255, 0.76);
+      --shadow: 0 20px 60px rgba(41, 83, 140, 0.16);
+      --shadow-soft: 0 12px 35px rgba(41, 83, 140, 0.11);
+      --radius-xl: 34px;
+      --radius-lg: 26px;
+      --radius-md: 20px;
+      --container: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    html {
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "Behdad", Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(111, 189, 255, 0.46), transparent 28%),
+        radial-gradient(circle at 88% 12%, rgba(190, 141, 255, 0.28), transparent 29%),
+        radial-gradient(circle at 45% 84%, rgba(92, 221, 188, 0.26), transparent 31%),
+        linear-gradient(155deg, #e8f3ff 0%, #f8fbff 48%, #edf8f5 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      border-radius: 999px;
+      filter: blur(18px);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    body::before {
+      width: 320px;
+      height: 320px;
+      top: 12%;
+      left: -100px;
+      background: linear-gradient(135deg, rgba(49, 145, 255, 0.34), rgba(130, 93, 255, 0.15));
+    }
+
+    body::after {
+      width: 420px;
+      height: 420px;
+      right: -140px;
+      bottom: 2%;
+      background: linear-gradient(135deg, rgba(61, 218, 184, 0.25), rgba(92, 155, 255, 0.18));
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .container {
+      width: min(calc(100% - 32px), var(--container));
+      margin-inline: auto;
+    }
+
+    .glass {
+      background: linear-gradient(145deg, rgba(255,255,255,0.72), rgba(255,255,255,0.38));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      -webkit-backdrop-filter: blur(24px) saturate(145%);
+      backdrop-filter: blur(24px) saturate(145%);
+    }
+
+    .desktop-header {
+      position: sticky;
+      top: 14px;
+      z-index: 50;
+      width: min(calc(100% - 32px), var(--container));
+      margin: 14px auto 0;
+      border-radius: 24px;
+      padding: 10px 14px;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.28), transparent 55%),
+        linear-gradient(135deg, #0e6fde, #61adff);
+      box-shadow: 0 10px 24px rgba(20, 115, 230, 0.30);
+      font-size: 24px;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 1.06rem;
+    }
+
+    .brand small {
+      color: var(--muted);
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.34);
+      border: 1px solid rgba(255,255,255,0.55);
+    }
+
+    .desktop-nav a {
+      padding: 10px 14px;
+      border-radius: 14px;
+      color: #344058;
+      transition: .25s ease;
+      white-space: nowrap;
+    }
+
+    .desktop-nav a:hover,
+    .desktop-nav a:focus-visible {
+      background: rgba(255,255,255,0.82);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .header-cta,
+    .primary-btn,
+    .secondary-btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 16px;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .header-cta,
+    .primary-btn {
+      color: white;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.18), transparent 50%),
+        linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: 0 12px 26px rgba(20, 115, 230, .28);
+    }
+
+    .header-cta {
+      padding: 12px 18px;
+      white-space: nowrap;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      padding: 13px 19px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .secondary-btn {
+      color: var(--text);
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(255,255,255,.85);
+      box-shadow: 0 10px 22px rgba(41,83,140,.10);
+    }
+
+    .header-cta:hover,
+    .primary-btn:hover,
+    .secondary-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    main {
+      padding-bottom: 120px;
+    }
+
+    .hero {
+      padding: 54px 0 20px;
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 470px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      padding: clamp(28px, 5vw, 68px);
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      left: -120px;
+      bottom: -185px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(47, 139, 255, .26), transparent 68%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      background: rgba(255,255,255,.56);
+      border: 1px solid rgba(255,255,255,.85);
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      font-size: .9rem;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.1rem, 5vw, 4.45rem);
+      line-height: 1.2;
+      letter-spacing: -1px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #0e67cb, #7d62ef);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: clamp(1rem, 1.6vw, 1.16rem);
+      line-height: 2;
+      max-width: 620px;
+      margin: 18px 0 24px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+    }
+
+    .phone-stage {
+      position: relative;
+      width: min(100%, 430px);
+      aspect-ratio: 1.12;
+      border-radius: 45px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.74), rgba(255,255,255,.26));
+      border: 1px solid rgba(255,255,255,.85);
+      box-shadow: 0 30px 65px rgba(49, 88, 150, .18);
+      -webkit-backdrop-filter: blur(28px);
+      backdrop-filter: blur(28px);
+      display: grid;
+      place-items: center;
+      transform: rotate(-3deg);
+    }
+
+    .phone-mockup {
+      width: 190px;
+      height: 320px;
+      border-radius: 36px;
+      padding: 9px;
+      background: #171a21;
+      box-shadow: 0 28px 55px rgba(24, 30, 44, .30);
+      transform: rotate(7deg);
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 29px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,.7), transparent 20%),
+        linear-gradient(145deg, #9fd7ff, #7868ef 46%, #ff8aa8);
+    }
+
+    .phone-screen::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 64px;
+      height: 20px;
+      border-radius: 999px;
+      background: #11141b;
+    }
+
+    .floating-pill {
+      position: absolute;
+      border-radius: 20px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(255,255,255,.90);
+      box-shadow: 0 16px 32px rgba(41,83,140,.15);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      font-size: .9rem;
+    }
+
+    .floating-pill.one {
+      top: 42px;
+      right: -18px;
+    }
+
+    .floating-pill.two {
+      bottom: 40px;
+      left: -22px;
+    }
+
+    .section {
+      padding: 34px 0 18px;
+      scroll-margin-top: 105px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-kicker {
+      color: var(--primary);
+      font-size: .88rem;
+      margin-bottom: 5px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(1.6rem, 3vw, 2.45rem);
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      margin: 7px 0 0;
+      line-height: 1.8;
+    }
+
+    .view-all {
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .product-card {
+      border-radius: var(--radius-lg);
+      padding: 13px;
+      overflow: hidden;
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-7px);
+      box-shadow: var(--shadow);
+    }
+
+    .product-image {
+      aspect-ratio: 1 / .86;
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(255,255,255,.82), transparent 25%),
+        linear-gradient(145deg, #d8eaff, #cfd3fa 50%, #eed7ff);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-image .placeholder {
+      font-size: 58px;
+      filter: drop-shadow(0 14px 15px rgba(39, 62, 104, .18));
+    }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,.76);
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: .76rem;
+      color: var(--primary);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+    }
+
+    .product-body {
+      padding: 13px 4px 5px;
+    }
+
+    .product-title {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .product-details {
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.75;
+      min-height: 48px;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 13px;
+    }
+
+    .price {
+      color: #17233b;
+      font-weight: bold;
+    }
+
+    .price small {
+      display: block;
+      color: var(--muted);
+      font-weight: normal;
+      font-size: .73rem;
+      margin-top: 2px;
+    }
+
+    .mini-btn {
+      width: 39px;
+      height: 39px;
+      border-radius: 13px;
+      border: 0;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: 0 9px 18px rgba(20,115,230,.22);
+      cursor: pointer;
+    }
+
+    .installments {
+      min-height: 250px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .installments::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(95, 170, 255, .30), transparent 30%),
+        radial-gradient(circle at 75% 80%, rgba(88, 221, 181, .24), transparent 28%);
+    }
+
+    .installments strong {
+      position: relative;
+      font-size: clamp(2.5rem, 8vw, 6.7rem);
+      color: rgba(23, 93, 168, .15);
+      letter-spacing: 4px;
+    }
+
+    .sim-card {
+      border-radius: var(--radius-xl);
+      padding: 18px;
+      overflow-x: auto;
+    }
+
+    .sim-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 10px;
+      min-width: 620px;
+    }
+
+    .sim-table th {
+      color: var(--muted);
+      font-weight: normal;
+      padding: 8px 16px;
+      text-align: right;
+    }
+
+    .sim-table td {
+      padding: 15px 16px;
+      background: rgba(255,255,255,.55);
+      border-top: 1px solid rgba(255,255,255,.8);
+      border-bottom: 1px solid rgba(255,255,255,.8);
+    }
+
+    .sim-table td:first-child {
+      border-radius: 0 17px 17px 0;
+      border-right: 1px solid rgba(255,255,255,.8);
+    }
+
+    .sim-table td:last-child {
+      border-radius: 17px 0 0 17px;
+      border-left: 1px solid rgba(255,255,255,.8);
+    }
+
+    .number {
+      font-size: 1.08rem;
+      direction: ltr;
+      text-align: right;
+      font-weight: bold;
+      letter-spacing: .5px;
+    }
+
+    .status {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: .8rem;
+      background: rgba(22,163,106,.12);
+      color: var(--success);
+    }
+
+    .sold {
+      opacity: .56;
+    }
+
+    .sold .number,
+    .sold .sim-price {
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+    }
+
+    .sold .status {
+      color: var(--danger);
+      background: rgba(239,71,111,.12);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 18px;
+    }
+
+    .contact-panel,
+    .map-panel {
+      border-radius: var(--radius-xl);
+      padding: 22px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.49);
+      border: 1px solid rgba(255,255,255,.75);
+    }
+
+    .contact-icon {
+      flex: 0 0 42px;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(20,115,230,.1);
+      color: var(--primary);
+    }
+
+    .contact-item small {
+      color: var(--muted);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .ltr {
+      direction: ltr;
+      display: inline-block;
+    }
+
+    .map-frame {
+      width: 100%;
+      height: 100%;
+      min-height: 350px;
+      border: 0;
+      border-radius: 24px;
+      display: block;
+      filter: saturate(.82) contrast(.94);
+    }
+
+    footer {
+      padding: 24px 0 118px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .mobile-nav {
+      display: none;
+    }
+
+    @media (max-width: 980px) {
+      .desktop-header {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 18px;
+      }
+
+      .hero-card {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 34px;
+      }
+
+      .hero-copy {
+        text-align: center;
+      }
+
+      .hero p {
+        margin-inline: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        min-height: 310px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mobile-nav {
+        position: fixed;
+        z-index: 100;
+        bottom: max(10px, env(safe-area-inset-bottom));
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(calc(100% - 18px), 620px);
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 4px;
+        padding: 8px;
+        border-radius: 25px;
+        background: linear-gradient(145deg, rgba(255,255,255,.82), rgba(255,255,255,.54));
+        border: 1px solid rgba(255,255,255,.9);
+        box-shadow: 0 18px 50px rgba(30, 66, 120, .24);
+        -webkit-backdrop-filter: blur(28px) saturate(165%);
+        backdrop-filter: blur(28px) saturate(165%);
+      }
+
+      .mobile-nav a {
+        min-width: 0;
+        color: #5c6780;
+        border-radius: 17px;
+        padding: 8px 2px 7px;
+        text-align: center;
+        font-size: .68rem;
+        line-height: 1.35;
+        transition: .2s ease;
+      }
+
+      .mobile-nav a span {
+        display: grid;
+        place-items: center;
+        font-size: 1.15rem;
+        margin-bottom: 3px;
+      }
+
+      .mobile-nav a:hover,
+      .mobile-nav a:focus-visible,
+      .mobile-nav a.active {
+        color: var(--primary);
+        background: rgba(20,115,230,.09);
+      }
+
+      footer {
+        padding-bottom: 130px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(calc(100% - 20px), var(--container));
+      }
+
+      .hero-card {
+        border-radius: 28px;
+        padding: 26px 18px;
+        gap: 18px;
+      }
+
+      .hero h1 {
+        font-size: 2.45rem;
+      }
+
+      .hero p {
+        font-size: .94rem;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        padding: 12px 10px;
+      }
+
+      .hero-visual {
+        min-height: 270px;
+      }
+
+      .phone-stage {
+        width: 100%;
+        max-width: 345px;
+        border-radius: 34px;
+      }
+
+      .phone-mockup {
+        width: 145px;
+        height: 245px;
+        border-radius: 29px;
+      }
+
+      .phone-screen {
+        border-radius: 23px;
+      }
+
+      .floating-pill {
+        font-size: .73rem;
+        padding: 9px 10px;
+      }
+
+      .section {
+        padding-top: 26px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+      }
+
+      .section-subtitle {
+        font-size: .9rem;
+      }
+
+      .view-all {
+        display: none;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-card {
+        display: grid;
+        grid-template-columns: 118px 1fr;
+        gap: 11px;
+        align-items: center;
+      }
+
+      .product-image {
+        aspect-ratio: 1;
+        height: 118px;
+      }
+
+      .product-image .placeholder {
+        font-size: 42px;
+      }
+
+      .product-body {
+        padding: 2px 0;
+      }
+
+      .product-details {
+        min-height: unset;
+        font-size: .8rem;
+      }
+
+      .product-footer {
+        margin-top: 8px;
+      }
+
+      .installments {
+        min-height: 180px;
+        border-radius: 26px;
+      }
+
+      .sim-card,
+      .contact-panel,
+      .map-panel {
+        border-radius: 26px;
+        padding: 13px;
+      }
+
+      .map-frame {
+        min-height: 300px;
+        border-radius: 20px;
+      }
+
+      .mobile-nav {
+        border-radius: 22px;
+        padding: 7px 5px;
+      }
+
+      .mobile-nav a {
+        font-size: .61rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="desktop-header glass" aria-label="منوی اصلی">
+    <div class="header-inner">
+      <a class="brand" href="#home">
+        <div class="brand-mark">⌁</div>
+        <div>
+          <strong>فروشگاه موبایل میلاد</strong>
+          <small>انتخاب هوشمند، خرید مطمئن</small>
+        </div>
+      </a>
+
+      <nav class="desktop-nav" aria-label="بخش‌های سایت">
+        <a href="#phones">گوشی</a>
+        <a href="#accessories">لوازم جانبی</a>
+        <a href="#simcards">خط و سیمکارت</a>
+        <a href="#installments">اقساط</a>
+        <a href="#contact">تماس با ما</a>
+      </nav>
+
+      <a class="header-cta" href="tel:+982112345678">تماس سریع</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-card glass">
+          <div class="hero-copy">
+            <div class="eyebrow">✦ نسل تازه خرید موبایل</div>
+            <h1>
+              تکنولوژی روز،
+              <span class="gradient-text">شفاف و درخشان</span>
+            </h1>
+            <p>
+              مجموعه‌ای منتخب از جدیدترین گوشی‌ها، لوازم جانبی کاربردی، خطوط خاص
+              و شرایط خرید اقساطی؛ با مشاوره تخصصی و ضمانت اصالت کالا.
+            </p>
+            <div class="hero-actions">
+              <a class="primary-btn" href="#phones">مشاهده گوشی‌ها ←</a>
+              <a class="secondary-btn" href="#contact">مشاوره خرید</a>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-hidden="true">
+            <div class="phone-stage">
+              <div class="phone-mockup">
+                <div class="phone-screen"></div>
+              </div>
+              <div class="floating-pill one">ضمانت اصالت کالا ✓</div>
+              <div class="floating-pill two">اقساط بلند مدت</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="phones">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">محبوب‌ترین انتخاب‌ها</div>
+            <h2 class="section-title">گوشی موبایل</h2>
+            <p class="section-subtitle">مدل‌های جدید با قیمت به‌روز و ضمانت معتبر</p>
+          </div>
+          <a class="view-all" href="#phones">مشاهده همه ←</a>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card glass">
+            <div class="product-image">
+              <span class="badge">پرفروش</span>
+              <img src="https://placehold.co/600x520/e5efff/356ca8?text=iPhone+15+Pro" alt="تصویر نمونه آیفون ۱۵ پرو" />
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">iPhone 15 Pro</h3>
+              <div class="product-details">حافظه ۲۵۶ گیگابایت، بدنه تیتانیومی، رجیستر شده</div>
+              <div class="product-footer">
+                <div class="price">۸۹,۵۰۰,۰۰۰ تومان<small>نقدی و اقساطی</small></div>
+                <button class="mini-btn" href="#contact" aria-label="افزودن آیفون ۱۵ پرو">+</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card glass">
+            <div class="product-image">
+              <img src="https://placehold.co/600x520/e9f4ff/386d9f?text=Galaxy+S24" alt="تصویر نمونه سامسونگ گلکسی S24" />
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Samsung Galaxy S24</h3>
+              <div class="product-details">حافظه ۲۵۶ گیگابایت، رم ۸ گیگ، نمایشگر AMOLED</div>
+              <div class="product-footer">
+                <div class="price">۵۸,۹۰۰,۰۰۰ تومان<small>گارانتی ۱۸ ماهه</small></div>
+                <button class="mini-btn" href="#contact" aria-label="افزودن گلکسی S24">+</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card glass">
+            <div class="product-image">
+              <span class="badge">اقتصادی</span>
+              <img src="https://placehold.co/600x520/eff5ff/55739e?text=Redmi+Note+13" alt="تصویر نمونه ردمی نوت ۱۳" />
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Redmi Note 13</h3>
+              <div class="product-details">حافظه ۲۵۶ گیگابایت، رم ۸ گیگ، دوربین ۱۰۸ مگاپیکسل</div>
+              <div class="product-footer">
+                <div class="price">۱۵,۷۵۰,۰۰۰ تومان<small>ارزش خرید بالا</small></div>
+                <button class="mini-btn" href="#contact" aria-label="افزودن ردمی نوت ۱۳">+</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card glass">
+            <div class="product-image">
+              <img src="https://placehold.co/600x520/e8f3f0/2b806e?text=Nothing+Phone" alt="تصویر نمونه ناتینگ فون" />
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Nothing Phone (2a)</h3>
+              <div class="product-details">حافظه ۲۵۶ گیگابایت، رم ۱۲ گیگ، طراحی Glyph</div>
+              <div class="product-footer">
+                <div class="price">۲۷,۴۰۰,۰۰۰ تومان<small>طراحی متفاوت</small></div>
+                <button class="mini-btn" href="#contact" aria-label="افزودن ناتینگ فون">+</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="accessories">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">تکمیل تجربه دیجیتال</div>
+            <h2 class="section-title">لوازم جانبی</h2>
+            <p class="section-subtitle">محصولات کاربردی و باکیفیت برای موبایل شما</p>
+          </div>
+          <a class="view-all" href="#accessories">مشاهده همه ←</a>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card glass">
+            <div class="product-image">
+              <span class="badge">اورجینال</span>
+              <img src="https://placehold.co/600x520/f0f4ff/5d6ca4?text=AirPods+Pro" alt="تصویر نمونه ایرپاد پرو" />
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">AirPods Pro 2</h3>
+              <div class="product-details">حذف نویز فعال، صدای فضایی، درگاه USB‑C</div>
+              <div class="product-footer">
+                <div class="price">۱۴,۹۰۰,۰۰۰ تومان<small>ضمانت اصالت</small></div>
+                <button class="mini-btn" href="#contact" aria-label="افزودن ایرپاد پرو">+</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card glass">
+            <div class="product-image">
+              <img src="https://placehold.co/600x520/edf5ff/476b95?text=Fast+Charger" alt="تصویر نمونه شارژر سریع" />
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">شارژر سریع ۲۵ وات</h3>
+              <div class="product-details">خروجی USB‑C، فناوری PD، مناسب گوشی‌های سامسونگ</div>
+              <div class="product-footer">
+                <div class="price">۱,۴۵۰,۰۰۰ تومان<small>کابل جداگانه</small></div>
+                <button class="mini-btn" href="#contact" aria-label="افزودن شارژر سریع">+</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card glass">
+            <div class="product-image">
+              <span class="badge">جدید</span>
+              <img src="https://placehold.co/600x520/edf8f5/367d69?text=Power+Bank" alt="تصویر نمونه پاوربانک" />
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">پاوربانک ۲۰۰۰۰</h3>
+              <div class="product-details">دو خروجی سریع، نمایشگر دیجیتال، بدنه مقاوم</div>
+              <div class="product-footer">
+                <div class="price">۲,۳۹۰,۰۰۰ تومان<small>ظرفیت واقعی</small></div>
+                <button class="mini-btn" href="#contact" aria-label="افزودن پاوربانک">+</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product-card glass">
+            <div class="product-image">
+              <img src="https://placehold.co/600x520/f6efff/765b9e?text=Phone+Case" alt="تصویر نمونه قاب موبایل" />
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">قاب مگ‌سیف شفاف</h3>
+              <div class="product-details">ضد زردی، لبه برجسته، آهنربای قدرتمند</div>
+              <div class="product-footer">
+                <div class="price">۸۹۰,۰۰۰ تومان<small>مناسب آیفون</small></div>
+                <button class="mini-btn" href="#contact" aria-label="افزودن قاب مگ‌سیف">+</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="installments">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">خرید آسان‌تر</div>
+            <h2 class="section-title">فروش اقساطی</h2>
+          </div>
+        </div>
+        <div class="installments glass">
+          <strong>اقساط</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="simcards">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">شماره‌های منتخب</div>
+            <h2 class="section-title">خط و سیمکارت</h2>
+            <p class="section-subtitle">شماره‌های دائمی و اعتباری با قیمت‌های مختلف</p>
+          </div>
+        </div>
+
+        <div class="sim-card glass">
+          <table class="sim-table">
+            <thead>
+              <tr>
+                <th>شماره موبایل</th>
+                <th>اپراتور</th>
+                <th>قیمت</th>
+                <th>وضعیت</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="number">0912 123 4567</td>
+                <td>همراه اول دائمی</td>
+                <td class="sim-price">۲۸,۵۰۰,۰۰۰ تومان</td>
+                <td><span class="status">موجود</span></td>
+              </tr>
+              <tr class="sold">
+                <td class="number">0912 555 2020</td>
+                <td>همراه اول دائمی</td>
+                <td class="sim-price">۴۲,۰۰۰,۰۰۰ تومان</td>
+                <td><span class="status">فروخته شد</span></td>
+              </tr>
+              <tr>
+                <td class="number">0935 707 7070</td>
+                <td>ایرانسل دائمی</td>
+                <td class="sim-price">۱۲,۸۰۰,۰۰۰ تومان</td>
+                <td><span class="status">موجود</span></td>
+              </tr>
+              <tr class="sold">
+                <td class="number">0990 111 8899</td>
+                <td>همراه اول اعتباری</td>
+                <td class="sim-price">۳,۹۰۰,۰۰۰ تومان</td>
+                <td><span class="status">فروخته شد</span></td>
+              </tr>
+              <tr>
+                <td class="number">0921 222 3344</td>
+                <td>رایتل دائمی</td>
+                <td class="sim-price">۵,۴۰۰,۰۰۰ تومان</td>
+                <td><span class="status">موجود</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">همیشه در دسترس شما</div>
+            <h2 class="section-title">تماس با ما</h2>
+            <p class="section-subtitle">برای مشاوره، استعلام قیمت و پیگیری سفارش با ما تماس بگیرید</p>
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-panel glass">
+            <h3>اطلاعات فروشگاه</h3>
+            <div class="contact-list">
+              <a class="contact-item" href="tel:+982112345678">
+                <span class="contact-icon">☎</span>
+                <span><small>تلفن فروشگاه</small><b class="ltr">021 1234 5678</b></span>
+              </a>
+
+              <a class="contact-item" href="tel:+989121234567">
+                <span class="contact-icon">◉</span>
+                <span><small>مشاوره و واتساپ</small><b class="ltr">0912 123 4567</b></span>
+              </a>
+
+              <a class="contact-item" href="tel:+989351112233">
+                <span class="contact-icon">✆</span>
+                <span><small>پشتیبانی سفارش‌ها</small><b class="ltr">0935 111 2233</b></span>
+              </a>
+
+              <div class="contact-item">
+                <span class="contact-icon">⌖</span>
+                <span>
+                  <small>آدرس</small>
+                  <b>تهران، خیابان ولیعصر، مجتمع تجاری میلاد، طبقه دوم، پلاک ۲۴</b>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="map-panel glass">
+            <iframe
+              class="map-frame"
+              title="موقعیت فروشگاه روی نقشه"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=51.386%2C35.694%2C51.426%2C35.724&amp;layer=mapnik">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="mobile-nav" aria-label="منوی موبایل">
+    <a href="#accessories">
+      <span>⌁</span>
+      لوازم جانبی
+    </a>
+    <a href="#phones">
+      <span>▯</span>
+      گوشی
+    </a>
+    <a href="#simcards">
+      <span>▤</span>
+      خط و سیمکارت
+    </a>
+    <a href="#installments">
+      <span>◫</span>
+      اقساط
+    </a>
+    <a href="#contact">
+      <span>☎</span>
+      تماس با ما
+    </a>
+  </nav>
+
+  <footer>
+    <div class="container">
+      © ۱۴۰۵ فروشگاه موبایل میلاد — تمامی حقوق محفوظ است.
+    </div>
+  </footer>
+
+  <script>
+    const navLinks = [...document.querySelectorAll('.mobile-nav a')];
+    const sectionIds = navLinks.map(link => link.getAttribute('href')).filter(Boolean);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      });
+    }, {
+      rootMargin: '-35% 0px -55% 0px',
+      threshold: 0
+    });
+
+    sectionIds.forEach(id => {
+      const section = document.querySelector(id);
+      if (section) observer.observe(section);
+    });
+  </script>
+</body>
+</html>

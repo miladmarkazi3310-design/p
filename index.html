@@ -902,6 +902,220 @@
       }
     }
   </style>
+  <style>
+    /* Installment calculator — scoped to match the site's glass design */
+    #installments .main-container {
+      width: min(100%, var(--container));
+      margin-inline: auto;
+      padding: clamp(18px, 3vw, 30px);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255,255,255,.72), rgba(255,255,255,.38));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      -webkit-backdrop-filter: blur(24px) saturate(145%);
+      backdrop-filter: blur(24px) saturate(145%);
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #installments .main-container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(85,164,255,.18), transparent 30%),
+        radial-gradient(circle at 88% 88%, rgba(92,221,188,.15), transparent 30%);
+    }
+
+    #installments .header,
+    #installments .form-section,
+    #installments .results-section {
+      position: relative;
+      z-index: 1;
+    }
+
+    #installments .header {
+      grid-column: 1 / -1;
+      text-align: right;
+    }
+
+    #installments .header h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 3vw, 2.45rem);
+      color: var(--text);
+    }
+
+    #installments .header p {
+      color: var(--muted);
+      margin: 7px 0 0;
+      line-height: 1.8;
+    }
+
+    #installments .form-section,
+    #installments .results-section {
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      background: rgba(255,255,255,.42);
+      border: 1px solid rgba(255,255,255,.72);
+    }
+
+    #installments .input-group { margin-bottom: 15px; }
+
+    #installments label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--text);
+      font-weight: 700;
+      font-size: .9rem;
+    }
+
+    #installments input[type="text"] {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 16px;
+      background: rgba(255,255,255,.64);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 8px 20px rgba(41,83,140,.08);
+      color: var(--text);
+      direction: ltr;
+      text-align: right;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    #installments input[type="text"]:focus {
+      outline: none;
+      border-color: rgba(20,115,230,.55);
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 0 0 4px rgba(20,115,230,.10), 0 10px 24px rgba(41,83,140,.10);
+    }
+
+    #installments input::placeholder { color: #929cb0; }
+
+    #installments .month-slider-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    #installments .month-slider-head label { margin-bottom: 0; }
+
+    #installments #monthsValue {
+      min-width: 62px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(20,115,230,.10);
+      color: var(--primary);
+      font-size: .84rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    #installments input[type="range"] {
+      width: 100%;
+      height: 8px;
+      margin: 5px 0 3px;
+      border-radius: 999px;
+      background: linear-gradient(to left, var(--primary) 0%, var(--primary) 0%, rgba(20,115,230,.14) 0%, rgba(20,115,230,.14) 100%);
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      direction: rtl;
+    }
+
+    #installments input[type="range"]::-webkit-slider-thumb {
+      width: 24px;
+      height: 24px;
+      border: 4px solid white;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 5px 14px rgba(20,115,230,.30);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    #installments input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border: 4px solid white;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 5px 14px rgba(20,115,230,.30);
+    }
+
+    #installments .month-slider-limits {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: .72rem;
+    }
+
+    #installments .results {
+      display: none;
+      border-radius: 20px;
+      padding: 5px 14px;
+      background: rgba(255,255,255,.58);
+      border: 1px solid rgba(255,255,255,.82);
+      animation: installmentFade .25s ease;
+    }
+
+    @keyframes installmentFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #installments .result-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 2px;
+      border-bottom: 1px solid rgba(110,120,144,.12);
+      font-size: .88rem;
+    }
+
+    #installments .result-item:last-child { border-bottom: 0; }
+    #installments .result-label { color: var(--muted); }
+    #installments .result-value { color: var(--text); font-weight: 700; text-align: left; }
+    #installments .highlight-green { color: var(--success); font-size: 1rem; }
+    #installments .highlight-red { color: var(--danger); font-size: 1rem; }
+    #installments .underline { text-decoration: none; }
+
+    #installments .divider {
+      margin: 3px 0;
+      border-top: 1px dashed rgba(110,120,144,.28);
+    }
+
+    #installments .error-message {
+      display: none;
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      color: var(--danger);
+      background: rgba(239,71,111,.09);
+      font-size: .84rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    @media (max-width: 780px) {
+      #installments .main-container { grid-template-columns: 1fr; }
+      #installments .header { text-align: center; }
+    }
+
+    @media (max-width: 620px) {
+      #installments .main-container { padding: 13px; border-radius: 26px; gap: 13px; }
+      #installments .form-section,
+      #installments .results-section { padding: 13px; border-radius: 20px; }
+      #installments .result-item { align-items: flex-start; font-size: .8rem; }
+      #installments .result-value { max-width: 52%; }
+    }
+  </style>
 </head>
 
 <body>
@@ -1110,14 +1324,180 @@
       <div class="container">
         <div class="section-head">
           <div>
-            <div class="section-kicker">خرید آسان‌تر</div>
-            <h2 class="section-title">فروش اقساطی</h2>
+            <div class="section-kicker">محاسبه شفاف و سریع</div>
+            <h2 class="section-title">ماشین حساب اقساط</h2>
+            <p class="section-subtitle">محاسبات با نرخ ثابت ۱۰٪ و تامین فعال انجام می‌شود.</p>
           </div>
         </div>
-        <div class="installments glass">
-          <strong>اقساط</strong>
+
+        <div class="main-container">
+          <div class="header">
+            <h1>محاسبه اقساط با نرخ ثابت ۱۰٪</h1>
+             <p>شما میتوانید با وارد کردن مبلغ مورد نظرتان تعداد اقساط و سود را مشاهده کنید.</p>
+          </div>
+
+          <div class="form-section">
+            <form id="calcForm" onsubmit="return false;">
+              <div class="input-group">
+                <label for="totalPrice">💰 مبلغ کل کالا</label>
+                <input type="text" id="totalPrice" class="numeric-input" inputmode="numeric" placeholder="مثال: ۱۰,۰۰۰,۰۰۰" autocomplete="off">
+              </div>
+
+              <div class="input-group">
+                <label for="downPayment">💵 پیش پرداخت</label>
+                <input type="text" id="downPayment" class="numeric-input" inputmode="numeric" placeholder="مبلغ پیش پرداخت" value="۰" autocomplete="off">
+              </div>
+
+              <div class="input-group month-slider-group">
+                <div class="month-slider-head">
+                  <label for="months">📅 تعداد ماه (مدت اقساط)</label>
+                  <output id="monthsValue" for="months">۱ ماه</output>
+                </div>
+                <input type="range" id="months" min="1" max="12" step="1" value="1" aria-label="تعداد ماه اقساط از ۱ تا ۱۲">
+                <div class="month-slider-limits" aria-hidden="true"><span>۱ ماه</span><span>۱۲ ماه</span></div>
+              </div>
+            </form>
+          </div>
+
+          <div class="results-section">
+            <div id="errorBox" class="error-message"></div>
+            <div class="results" id="resultsBox">
+              <div class="result-item"><span class="result-label">مبلغ کل کالا</span><span class="result-value" id="resTotalPrice">۰</span></div>
+              <div class="result-item"><span class="result-label">مبلغ پرداختی (پیش)</span><span class="result-value" id="resDownPayment">۰</span></div>
+              <div class="result-item"><span class="result-label">مبلغ باقی‌مانده</span><span class="result-value" id="resBaghi">۰</span></div>
+              <div class="result-item"><span class="result-label">تعداد ماه</span><span class="result-value" id="resMonths">۰</span></div>
+              <div class="divider"></div>
+              <div class="result-item"><span class="result-label">💚 قسط هر ماه</span><span class="result-value highlight-green" id="resInstallment">۰</span></div>
+              <div class="result-item"><span class="result-label">مجموع اقساط</span><span class="result-value" id="resTotalInstallments">۰</span></div>
+              <div class="result-item"><span class="result-label">مبلغ کل بعد از اقساط</span><span class="result-value" id="resTotalAfter">۰</span></div>
+              <div class="result-item"><span class="result-label">❤️ سود</span><span class="result-value highlight-red" id="resProfit">۰</span></div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <script>
+        function formatNumberWithCommas(num) {
+          if (num === '' || num === undefined || num === null) return '';
+          const digits = String(num).replace(/,/g, '').replace(/[^\d]/g, '');
+          if (digits === '') return '';
+          return Number(digits).toLocaleString('en-US', { maximumFractionDigits: 0 });
+        }
+
+        function parseNumericValue(str) {
+          if (!str) return NaN;
+          const cleaned = str.replace(/,/g, '').trim();
+          return cleaned === '' ? NaN : parseInt(cleaned, 10);
+        }
+
+        function displayMoney(num) {
+          return (num * 1000).toLocaleString('en-US', { maximumFractionDigits: 0 });
+        }
+
+        const totalPriceInput = document.getElementById('totalPrice');
+        const downPaymentInput = document.getElementById('downPayment');
+        const monthsInput = document.getElementById('months');
+        const monthsValue = document.getElementById('monthsValue');
+        const errorBox = document.getElementById('errorBox');
+        const resultsBox = document.getElementById('resultsBox');
+
+        function formatInput(input) {
+          const formatted = formatNumberWithCommas(input.value);
+          if (formatted !== input.value) {
+            input.value = formatted;
+            input.setSelectionRange(formatted.length, formatted.length);
+          }
+        }
+
+        function getCurrentValues() {
+          return {
+            totalPrice: parseNumericValue(totalPriceInput.value),
+            downPayment: parseNumericValue(downPaymentInput.value) || 0,
+            months: parseNumericValue(monthsInput.value)
+          };
+        }
+
+
+        function updateMonthSlider() {
+          const months = Number(monthsInput.value);
+          monthsValue.textContent = months + ' ماه';
+          const progress = ((months - 1) / 11) * 100;
+          monthsInput.style.background = `linear-gradient(to left, var(--primary) 0%, var(--primary) ${progress}%, rgba(20,115,230,.14) ${progress}%, rgba(20,115,230,.14) 100%)`;
+        }
+
+        function roundInstallment(value) {
+          const floor = Math.floor(value);
+          const remainder = floor % 10;
+          if (remainder < 5 && floor / 10 !== 0) return Math.floor(floor / 10) * 10;
+          if (remainder > 5) return Math.floor(floor / 10) * 10 + 10;
+          return floor;
+        }
+
+        function showError(message) {
+          errorBox.textContent = message;
+          errorBox.style.display = 'block';
+          resultsBox.style.display = 'none';
+        }
+
+        function calculateRealtime() {
+          const { totalPrice, downPayment, months } = getCurrentValues();
+          errorBox.style.display = 'none';
+          resultsBox.style.display = 'none';
+
+          if (isNaN(totalPrice) || totalPrice <= 0 || isNaN(months) || months <= 0) return;
+          if (downPayment < 0) return showError('❌ مقادیر نمی‌توانند منفی باشند.');
+          if (downPayment > totalPrice) return showError('❌ مبلغ پیش پرداخت نباید بیشتر از مبلغ کل کالا باشد.');
+
+          const remaining = totalPrice - downPayment;
+          const fixedTenPercent = Math.floor(remaining * 0.10);
+          const baseWithTenPercent = remaining + fixedTenPercent;
+          const interest = baseWithTenPercent * 0.05 * months;
+          const beforeTamin = baseWithTenPercent + interest;
+          const withTamin = beforeTamin * 1.07;
+
+          const installment = roundInstallment(withTamin / months);
+          const totalInstallments = installment * months;
+          const totalAfter = totalInstallments + downPayment;
+          const profit = totalInstallments - remaining;
+
+          document.getElementById('resTotalPrice').textContent = displayMoney(totalPrice) + ' تومان';
+          document.getElementById('resDownPayment').textContent = displayMoney(downPayment) + ' تومان';
+          document.getElementById('resBaghi').textContent = displayMoney(remaining) + ' تومان';
+          document.getElementById('resMonths').textContent = months + ' ماه';
+          document.getElementById('resInstallment').textContent = displayMoney(installment) + ' تومان';
+          document.getElementById('resTotalInstallments').textContent = displayMoney(totalInstallments) + ' تومان';
+          document.getElementById('resTotalAfter').textContent = displayMoney(totalAfter) + ' تومان';
+          document.getElementById('resProfit').textContent = displayMoney(profit) + ' تومان';
+          resultsBox.style.display = 'block';
+        }
+
+        monthsInput.addEventListener('input', () => {
+          updateMonthSlider();
+          calculateRealtime();
+        });
+        updateMonthSlider();
+
+        const numericInputs = document.querySelectorAll('#installments .numeric-input');
+        numericInputs.forEach((input, index) => {
+          input.addEventListener('input', () => {
+            formatInput(input);
+            calculateRealtime();
+          });
+          input.addEventListener('blur', () => {
+            formatInput(input);
+            calculateRealtime();
+          });
+          input.addEventListener('keydown', event => {
+            if (event.key !== 'Enter') return;
+            event.preventDefault();
+            const next = numericInputs[(index + 1) % numericInputs.length];
+            next.focus();
+            next.select();
+          });
+          if (input.value) formatInput(input);
+        });
+
+      </script>
     </section>
 
     <section class="section" id="simcards">
@@ -1191,39 +1571,36 @@
           <div class="contact-panel glass">
             <h3>اطلاعات فروشگاه</h3>
             <div class="contact-list">
-              <a class="contact-item" href="tel:+982112345678">
+              <a class="contact-item" href="tel:06642503031">
                 <span class="contact-icon">☎</span>
-                <span><small>تلفن فروشگاه</small><b class="ltr">021 1234 5678</b></span>
+                <span><small>تلفن فروشگاه</small><b class="ltr">066 4250 3031</b></span>
               </a>
 
-              <a class="contact-item" href="tel:+989121234567">
+              <a class="contact-item" href="tel:09352990006">
                 <span class="contact-icon">◉</span>
-                <span><small>مشاوره و واتساپ</small><b class="ltr">0912 123 4567</b></span>
+                <span><small>مشاوره و واتساپ</small><b class="ltr">0935 299 0006</b></span>
               </a>
 
-              <a class="contact-item" href="tel:+989351112233">
+              <a class="contact-item" href="tel:09356631000">
                 <span class="contact-icon">✆</span>
-                <span><small>پشتیبانی سفارش‌ها</small><b class="ltr">0935 111 2233</b></span>
+                <span><small>پشتیبانی سفارش‌ها</small><b class="ltr">0935 663 1000</b></span>
               </a>
 
               <div class="contact-item">
                 <span class="contact-icon">⌖</span>
                 <span>
                   <small>آدرس</small>
-                  <b>تهران، خیابان ولیعصر، مجتمع تجاری میلاد، طبقه دوم، پلاک ۲۴</b>
+
+                  <b>
+                   لرستان، بروجرد، خیابان تختی، پاساژ نیلوفر، پ3، موبایل میلاد
+                  </b>
                 </span>
               </div>
             </div>
           </div>
 
           <div class="map-panel glass">
-            <iframe
-              class="map-frame"
-              title="موقعیت فروشگاه روی نقشه"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=51.386%2C35.694%2C51.426%2C35.724&amp;layer=mapnik">
-            </iframe>
+            <iframe src="https://balad.ir/embed?p=5E7a9HrkJnJMN4" title="مشاهده «پاساژ نیلوفر» روی نقشه بلد" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
           </div>
         </div>
       </div>

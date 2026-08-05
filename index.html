@@ -1341,12 +1341,12 @@
           <div class="form-section">
             <form id="calcForm" onsubmit="return false;">
               <div class="input-group">
-                <label for="totalPrice">💰 مبلغ کل کالا</label>
+                <label for="totalPrice">💰 مبلغ کل کالا (تومان)</label>
                 <input type="text" id="totalPrice" class="numeric-input" inputmode="numeric" placeholder="مثال: ۱۰,۰۰۰,۰۰۰" autocomplete="off">
               </div>
 
               <div class="input-group">
-                <label for="downPayment">💵 پیش پرداخت</label>
+                <label for="downPayment">💵 پیش پرداخت (تومان)</label>
                 <input type="text" id="downPayment" class="numeric-input" inputmode="numeric" placeholder="مبلغ پیش پرداخت" value="۰" autocomplete="off">
               </div>
 
@@ -1379,127 +1379,150 @@
       </div>
 
       <script>
-        function formatNumberWithCommas(num) {
-          if (num === '' || num === undefined || num === null) return '';
-          const digits = String(num).replace(/,/g, '').replace(/[^\d]/g, '');
-          if (digits === '') return '';
-          return Number(digits).toLocaleString('en-US', { maximumFractionDigits: 0 });
-        }
+  function formatNumberWithCommas(num) {
+    if (num === '' || num === undefined || num === null) return '';
+    const digits = String(num).replace(/,/g, '').replace(/[^\d]/g, '');
+    if (digits === '') return '';
+    return Number(digits).toLocaleString('en-US', { maximumFractionDigits: 0 });
+  }
 
-        function parseNumericValue(str) {
-          if (!str) return NaN;
-          const cleaned = str.replace(/,/g, '').trim();
-          return cleaned === '' ? NaN : parseInt(cleaned, 10);
-        }
+  function parseNumericValue(str) {
+    if (!str) return NaN;
+    const cleaned = str.replace(/,/g, '').trim();
+    return cleaned === '' ? NaN : parseInt(cleaned, 10);
+  }
 
-        function displayMoney(num) {
-          return (num * 1000).toLocaleString('en-US', { maximumFractionDigits: 0 });
-        }
+  /* FIXED: Removed the ×1000 */
+  function displayMoney(num) {
+    return Number(num).toLocaleString('en-US', {
+      maximumFractionDigits: 0
+    });
+  }
 
-        const totalPriceInput = document.getElementById('totalPrice');
-        const downPaymentInput = document.getElementById('downPayment');
-        const monthsInput = document.getElementById('months');
-        const monthsValue = document.getElementById('monthsValue');
-        const errorBox = document.getElementById('errorBox');
-        const resultsBox = document.getElementById('resultsBox');
+  const totalPriceInput = document.getElementById('totalPrice');
+  const downPaymentInput = document.getElementById('downPayment');
+  const monthsInput = document.getElementById('months');
+  const monthsValue = document.getElementById('monthsValue');
+  const errorBox = document.getElementById('errorBox');
+  const resultsBox = document.getElementById('resultsBox');
 
-        function formatInput(input) {
-          const formatted = formatNumberWithCommas(input.value);
-          if (formatted !== input.value) {
-            input.value = formatted;
-            input.setSelectionRange(formatted.length, formatted.length);
-          }
-        }
+  function formatInput(input) {
+    const formatted = formatNumberWithCommas(input.value);
+    if (formatted !== input.value) {
+      input.value = formatted;
+      input.setSelectionRange(formatted.length, formatted.length);
+    }
+  }
 
-        function getCurrentValues() {
-          return {
-            totalPrice: parseNumericValue(totalPriceInput.value),
-            downPayment: parseNumericValue(downPaymentInput.value) || 0,
-            months: parseNumericValue(monthsInput.value)
-          };
-        }
+  function getCurrentValues() {
+    return {
+      totalPrice: parseNumericValue(totalPriceInput.value),
+      downPayment: parseNumericValue(downPaymentInput.value) || 0,
+      months: parseNumericValue(monthsInput.value)
+    };
+  }
 
+  function updateMonthSlider() {
+    const months = Number(monthsInput.value);
+    monthsValue.textContent = months + ' ماه';
+    const progress = ((months - 1) / 11) * 100;
+    monthsInput.style.background = `linear-gradient(to left, var(--primary) 0%, var(--primary) ${progress}%, rgba(20,115,230,.14) ${progress}%, rgba(20,115,230,.14) 100%)`;
+  }
 
-        function updateMonthSlider() {
-          const months = Number(monthsInput.value);
-          monthsValue.textContent = months + ' ماه';
-          const progress = ((months - 1) / 11) * 100;
-          monthsInput.style.background = `linear-gradient(to left, var(--primary) 0%, var(--primary) ${progress}%, rgba(20,115,230,.14) ${progress}%, rgba(20,115,230,.14) 100%)`;
-        }
+  function roundInstallment(value) {
+    const floor = Math.floor(value);
+    const remainder = floor % 10;
+    if (remainder < 5 && floor / 10 !== 0) return Math.floor(floor / 10) * 10;
+    if (remainder > 5) return Math.floor(floor / 10) * 10 + 10;
+    return floor;
+  }
 
-        function roundInstallment(value) {
-          const floor = Math.floor(value);
-          const remainder = floor % 10;
-          if (remainder < 5 && floor / 10 !== 0) return Math.floor(floor / 10) * 10;
-          if (remainder > 5) return Math.floor(floor / 10) * 10 + 10;
-          return floor;
-        }
+  function showError(message) {
+    errorBox.textContent = message;
+    errorBox.style.display = 'block';
+    resultsBox.style.display = 'none';
+  }
 
-        function showError(message) {
-          errorBox.textContent = message;
-          errorBox.style.display = 'block';
-          resultsBox.style.display = 'none';
-        }
+  function calculateRealtime() {
+    const { totalPrice, downPayment, months } = getCurrentValues();
+    errorBox.style.display = 'none';
+    resultsBox.style.display = 'none';
 
-        function calculateRealtime() {
-          const { totalPrice, downPayment, months } = getCurrentValues();
-          errorBox.style.display = 'none';
-          resultsBox.style.display = 'none';
+    if (isNaN(totalPrice) || totalPrice <= 0 || isNaN(months) || months <= 0) return;
+    if (downPayment < 0) return showError('❌ مقادیر نمی‌توانند منفی باشند.');
+    if (downPayment > totalPrice) return showError('❌ مبلغ پیش پرداخت نباید بیشتر از مبلغ کل کالا باشد.');
 
-          if (isNaN(totalPrice) || totalPrice <= 0 || isNaN(months) || months <= 0) return;
-          if (downPayment < 0) return showError('❌ مقادیر نمی‌توانند منفی باشند.');
-          if (downPayment > totalPrice) return showError('❌ مبلغ پیش پرداخت نباید بیشتر از مبلغ کل کالا باشد.');
+    const remaining = totalPrice - downPayment;
+    const fixedTenPercent = Math.floor(remaining * 0.10);
+    const baseWithTenPercent = remaining + fixedTenPercent;
+    const interest = baseWithTenPercent * 0.05 * months;
+    const beforeTamin = baseWithTenPercent + interest;
+    const withTamin = beforeTamin * 1.07;
 
-          const remaining = totalPrice - downPayment;
-          const fixedTenPercent = Math.floor(remaining * 0.10);
-          const baseWithTenPercent = remaining + fixedTenPercent;
-          const interest = baseWithTenPercent * 0.05 * months;
-          const beforeTamin = baseWithTenPercent + interest;
-          const withTamin = beforeTamin * 1.07;
+    const installment = roundInstallment(withTamin / months);
+    const totalInstallments = installment * months;
+    const totalAfter = totalInstallments + downPayment;
+    const profit = totalInstallments - remaining;
 
-          const installment = roundInstallment(withTamin / months);
-          const totalInstallments = installment * months;
-          const totalAfter = totalInstallments + downPayment;
-          const profit = totalInstallments - remaining;
+    document.getElementById('resTotalPrice').textContent =
+      displayMoney(totalPrice) + ' تومان';
 
-          document.getElementById('resTotalPrice').textContent = displayMoney(totalPrice) + ' تومان';
-          document.getElementById('resDownPayment').textContent = displayMoney(downPayment) + ' تومان';
-          document.getElementById('resBaghi').textContent = displayMoney(remaining) + ' تومان';
-          document.getElementById('resMonths').textContent = months + ' ماه';
-          document.getElementById('resInstallment').textContent = displayMoney(installment) + ' تومان';
-          document.getElementById('resTotalInstallments').textContent = displayMoney(totalInstallments) + ' تومان';
-          document.getElementById('resTotalAfter').textContent = displayMoney(totalAfter) + ' تومان';
-          document.getElementById('resProfit').textContent = displayMoney(profit) + ' تومان';
-          resultsBox.style.display = 'block';
-        }
+    document.getElementById('resDownPayment').textContent =
+      displayMoney(downPayment) + ' تومان';
 
-        monthsInput.addEventListener('input', () => {
-          updateMonthSlider();
-          calculateRealtime();
-        });
-        updateMonthSlider();
+    document.getElementById('resBaghi').textContent =
+      displayMoney(remaining) + ' تومان';
 
-        const numericInputs = document.querySelectorAll('#installments .numeric-input');
-        numericInputs.forEach((input, index) => {
-          input.addEventListener('input', () => {
-            formatInput(input);
-            calculateRealtime();
-          });
-          input.addEventListener('blur', () => {
-            formatInput(input);
-            calculateRealtime();
-          });
-          input.addEventListener('keydown', event => {
-            if (event.key !== 'Enter') return;
-            event.preventDefault();
-            const next = numericInputs[(index + 1) % numericInputs.length];
-            next.focus();
-            next.select();
-          });
-          if (input.value) formatInput(input);
-        });
+    document.getElementById('resMonths').textContent =
+      months + ' ماه';
 
-      </script>
+    document.getElementById('resInstallment').textContent =
+      displayMoney(installment) + ' تومان';
+
+    document.getElementById('resTotalInstallments').textContent =
+      displayMoney(totalInstallments) + ' تومان';
+
+    document.getElementById('resTotalAfter').textContent =
+      displayMoney(totalAfter) + ' تومان';
+
+    document.getElementById('resProfit').textContent =
+      displayMoney(profit) + ' تومان';
+
+    resultsBox.style.display = 'block';
+  }
+
+  monthsInput.addEventListener('input', () => {
+    updateMonthSlider();
+    calculateRealtime();
+  });
+
+  updateMonthSlider();
+
+  const numericInputs = document.querySelectorAll('#installments .numeric-input');
+
+  numericInputs.forEach((input, index) => {
+    input.addEventListener('input', () => {
+      formatInput(input);
+      calculateRealtime();
+    });
+
+    input.addEventListener('blur', () => {
+      formatInput(input);
+      calculateRealtime();
+    });
+
+    input.addEventListener('keydown', event => {
+      if (event.key !== 'Enter') return;
+
+      event.preventDefault();
+      const next = numericInputs[(index + 1) % numericInputs.length];
+      next.focus();
+      next.select();
+    });
+
+    if (input.value) formatInput(input);
+  });
+</script>
     </section>
 
     <section class="section" id="simcards">

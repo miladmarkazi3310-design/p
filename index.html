@@ -418,6 +418,48 @@
       gap: 16px;
     }
 
+    .phone-banner {
+      position: relative;
+      width: 100%;
+      min-height: 720px;
+      padding: 10px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      cursor: zoom-in;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .phone-banner img {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      display: block;
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+      max-width: none;
+      object-fit: contain;
+      border-radius: calc(var(--radius-xl) - 8px);
+      cursor: zoom-in;
+      user-select: none;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      will-change: width, height, left, top;
+    }
+
+    .phone-banner.is-zoomed {
+      cursor: grab;
+    }
+
+    .phone-banner.is-zoomed:active {
+      cursor: grabbing;
+    }
+
+    .phone-banner.is-zoomed img {
+      cursor: grab;
+    }
+
     .product-card {
       border-radius: var(--radius-lg);
       padding: 13px;
@@ -841,6 +883,16 @@
         grid-template-columns: 1fr;
       }
 
+      .phone-banner {
+        min-height: 440px;
+        padding: 6px;
+        border-radius: 26px;
+      }
+
+      .phone-banner img {
+        border-radius: 20px;
+      }
+
       .product-card {
         display: grid;
         grid-template-columns: 118px 1fr;
@@ -1185,64 +1237,13 @@
           <a class="view-all" href="#phones">مشاهده همه ←</a>
         </div>
 
-        <div class="product-grid">
-          <article class="product-card glass">
-            <div class="product-image">
-              <span class="badge">پرفروش</span>
-              <img src="https://placehold.co/600x520/e5efff/356ca8?text=iPhone+15+Pro" alt="تصویر نمونه آیفون ۱۵ پرو" />
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">iPhone 15 Pro</h3>
-              <div class="product-details">حافظه ۲۵۶ گیگابایت، بدنه تیتانیومی، رجیستر شده</div>
-              <div class="product-footer">
-                <div class="price">۸۹,۵۰۰,۰۰۰ تومان<small>نقدی و اقساطی</small></div>
-                <button class="mini-btn" href="#contact" aria-label="افزودن آیفون ۱۵ پرو">+</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card glass">
-            <div class="product-image">
-              <img src="https://placehold.co/600x520/e9f4ff/386d9f?text=Galaxy+S24" alt="تصویر نمونه سامسونگ گلکسی S24" />
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Samsung Galaxy S24</h3>
-              <div class="product-details">حافظه ۲۵۶ گیگابایت، رم ۸ گیگ، نمایشگر AMOLED</div>
-              <div class="product-footer">
-                <div class="price">۵۸,۹۰۰,۰۰۰ تومان<small>گارانتی ۱۸ ماهه</small></div>
-                <button class="mini-btn" href="#contact" aria-label="افزودن گلکسی S24">+</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card glass">
-            <div class="product-image">
-              <span class="badge">اقتصادی</span>
-              <img src="https://placehold.co/600x520/eff5ff/55739e?text=Redmi+Note+13" alt="تصویر نمونه ردمی نوت ۱۳" />
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Redmi Note 13</h3>
-              <div class="product-details">حافظه ۲۵۶ گیگابایت، رم ۸ گیگ، دوربین ۱۰۸ مگاپیکسل</div>
-              <div class="product-footer">
-                <div class="price">۱۵,۷۵۰,۰۰۰ تومان<small>ارزش خرید بالا</small></div>
-                <button class="mini-btn" href="#contact" aria-label="افزودن ردمی نوت ۱۳">+</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card glass">
-            <div class="product-image">
-              <img src="https://placehold.co/600x520/e8f3f0/2b806e?text=Nothing+Phone" alt="تصویر نمونه ناتینگ فون" />
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Nothing Phone (2a)</h3>
-              <div class="product-details">حافظه ۲۵۶ گیگابایت، رم ۱۲ گیگ، طراحی Glyph</div>
-              <div class="product-footer">
-                <div class="price">۲۷,۴۰۰,۰۰۰ تومان<small>طراحی متفاوت</small></div>
-                <button class="mini-btn" href="#contact" aria-label="افزودن ناتینگ فون">+</button>
-              </div>
-            </div>
-          </article>
+        <div class="phone-banner glass">
+          <img
+            src="./images/milad0001.jpg"
+            alt="تصویر فروشگاه موبایل میلاد"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </section>
@@ -1262,7 +1263,7 @@
           <article class="product-card glass">
             <div class="product-image">
               <span class="badge">اورجینال</span>
-              <img src="https://placehold.co/600x520/f0f4ff/5d6ca4?text=AirPods+Pro" alt="تصویر نمونه ایرپاد پرو" />
+              <img src="./images/placeholder.jpg" alt="تصویر نمونه ایرپاد پرو" />
             </div>
             <div class="product-body">
               <h3 class="product-title">AirPods Pro 2</h3>
@@ -1276,7 +1277,7 @@
 
           <article class="product-card glass">
             <div class="product-image">
-              <img src="https://placehold.co/600x520/edf5ff/476b95?text=Fast+Charger" alt="تصویر نمونه شارژر سریع" />
+              <img src="./images/placeholder.jpg" alt="تصویر نمونه شارژر سریع" />
             </div>
             <div class="product-body">
               <h3 class="product-title">شارژر سریع ۲۵ وات</h3>
@@ -1291,7 +1292,7 @@
           <article class="product-card glass">
             <div class="product-image">
               <span class="badge">جدید</span>
-              <img src="https://placehold.co/600x520/edf8f5/367d69?text=Power+Bank" alt="تصویر نمونه پاوربانک" />
+              <img src="./images/placeholder.jpg" alt="تصویر نمونه پاوربانک" />
             </div>
             <div class="product-body">
               <h3 class="product-title">پاوربانک ۲۰۰۰۰</h3>
@@ -1309,7 +1310,7 @@
           <article class="product-card glass">
             <div class="product-image">
               <span class="badge">جدید</span>
-              <img src="https://placehold.co/600x520/edf8f5/367d69?text=Power+Bank" alt="تصویر نمونه پاوربانک" />
+              <img src="./images/placeholder.jpg" alt="تصویر نمونه پاوربانک" />
             </div>
             <div class="product-body">
               <h3 class="product-title">45 وات اصل اورجینال</h3>
@@ -1323,7 +1324,7 @@
           
           <article class="product-card glass">
             <div class="product-image">
-              <img src="https://placehold.co/600x520/f6efff/765b9e?text=Phone+Case" alt="تصویر نمونه قاب موبایل" />
+              <img src="./images/placeholder.jpg" alt="تصویر نمونه قاب موبایل" />
             </div>
             <div class="product-body">
               <h3 class="product-title">قاب مگ‌سیف شفاف</h3>
@@ -1691,6 +1692,126 @@
       const section = document.querySelector(id);
       if (section) observer.observe(section);
     });
+
+    // Large banner image: width-based zoom + mouse/touch panning.
+    (() => {
+      const banner = document.querySelector('.phone-banner');
+      const image = banner?.querySelector('img');
+      if (!banner || !image) return;
+
+      const ZOOM_WIDTH = 220;
+      let zoomed = false;
+      let dragging = false;
+      let moved = false;
+      let startX = 0;
+      let startY = 0;
+      let startLeft = 0;
+      let startTop = 0;
+
+      const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+      function getZoomedSize() {
+        const width = banner.clientWidth * (ZOOM_WIDTH / 100);
+        const ratio = image.naturalWidth && image.naturalHeight
+          ? image.naturalHeight / image.naturalWidth
+          : 1;
+        return { width, height: width * ratio };
+      }
+
+      function resetZoom() {
+        zoomed = false;
+        dragging = false;
+        moved = false;
+        banner.classList.remove('is-zoomed');
+        image.style.width = 'calc(100% - 20px)';
+        image.style.height = 'calc(100% - 20px)';
+        image.style.left = '10px';
+        image.style.top = '10px';
+        image.style.objectFit = 'contain';
+      }
+
+      function zoomIn() {
+        zoomed = true;
+        banner.classList.add('is-zoomed');
+        const { width, height } = getZoomedSize();
+        image.style.width = `${ZOOM_WIDTH}%`;
+        image.style.height = 'auto';
+        image.style.objectFit = 'contain';
+        image.style.left = `${(banner.clientWidth - width) / 2}px`;
+        image.style.top = `${(banner.clientHeight - height) / 2}px`;
+      }
+
+      function toggleZoom() {
+        if (zoomed) resetZoom();
+        else zoomIn();
+      }
+
+      let pointerStartedOnImage = false;
+
+      banner.addEventListener('pointerdown', (event) => {
+        pointerStartedOnImage = event.target === image;
+        moved = false;
+        startX = event.clientX;
+        startY = event.clientY;
+
+        if (zoomed && pointerStartedOnImage) {
+          dragging = true;
+          startLeft = parseFloat(image.style.left) || 0;
+          startTop = parseFloat(image.style.top) || 0;
+          banner.setPointerCapture?.(event.pointerId);
+        } else {
+          dragging = false;
+        }
+      });
+
+      banner.addEventListener('pointermove', (event) => {
+        if (!zoomed || !dragging) return;
+
+        const dx = event.clientX - startX;
+        const dy = event.clientY - startY;
+        if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
+
+        const { width, height } = getZoomedSize();
+        const minLeft = Math.min(0, banner.clientWidth - width);
+        const minTop = Math.min(0, banner.clientHeight - height);
+
+        image.style.left = `${clamp(startLeft + dx, minLeft, 0)}px`;
+        image.style.top = `${clamp(startTop + dy, minTop, 0)}px`;
+      });
+
+      function endPointer(event) {
+        const shouldToggle = pointerStartedOnImage && !moved;
+
+        if (dragging) {
+          dragging = false;
+          banner.releasePointerCapture?.(event.pointerId);
+        }
+
+        pointerStartedOnImage = false;
+
+        if (shouldToggle) toggleZoom();
+        moved = false;
+      }
+
+      banner.addEventListener('pointerup', endPointer);
+      banner.addEventListener('pointercancel', (event) => {
+        dragging = false;
+        pointerStartedOnImage = false;
+        moved = false;
+        banner.releasePointerCapture?.(event.pointerId);
+      });
+
+      image.addEventListener('dragstart', (event) => event.preventDefault());
+
+      window.addEventListener('resize', () => {
+        if (!zoomed) return;
+        const { width, height } = getZoomedSize();
+        const currentLeft = parseFloat(image.style.left) || 0;
+        const currentTop = parseFloat(image.style.top) || 0;
+        image.style.left = `${clamp(currentLeft, Math.min(0, banner.clientWidth - width), 0)}px`;
+        image.style.top = `${clamp(currentTop, Math.min(0, banner.clientHeight - height), 0)}px`;
+      });
+    })();
   </script>
 </body>
 </html>

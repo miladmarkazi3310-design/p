@@ -730,6 +730,25 @@
       filter: saturate(.82) contrast(.94);
     }
 
+    .store-front-section {
+      padding: 10px 110px 10px;
+    }
+
+    .store-front-section .container {
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.45);
+    }
+
+    .store-front-section img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-width: none;
+    }
+
     footer {
       padding: 24px 0 118px;
       color: var(--muted);
@@ -1747,6 +1766,17 @@
       تماس با ما
     </a>
   </nav>
+
+  <section class="store-front-section" aria-label="تصویر نمای فروشگاه">
+    <div class="container">
+      <img
+        src="./images/store.jpg"
+        alt="نمای درِ ورودی و تابلوی فروشگاه موبایل میلاد"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </section>
 
   <footer>
     <div class="container">
